@@ -6,9 +6,23 @@ on:
 concurrency: cd-${{ github.ref }}
 
 jobs:
+  get-env:
+    runs-on: ubuntu-latest
+    outputs:
+      output: ${{ steps.step1.concat.data }}
+    steps:
+      - id: step1
+        if: endsWith(github.ref, '/develop')
+        run: echo "data=staging" >> "$GITHUB_OUTPUT"
+      - id: step2
+        if: endsWith(github.ref, '/master')
+        run: echo "data=production" >> "$GITHUB_OUTPUT"
+      - id: concat
+        run: echo "data=${{ steps.step1.outputs.data }}${{ steps.step2.outputs.data }}" >> "$GITHUB_OUTPUT"
+
   deploy:
     name: Deploy
-    continue-on-error: true
+    environment: ${{needs.get-env.outputs.output}}
     runs-on: ubuntu-latest
     env:
       FORGE_EMAIL: ${{ vars.FORGE_EMAIL }}
@@ -22,10 +36,15 @@ jobs:
           node-version: 16
 
       - name: Set deployment environment
-        uses: ./.github/actions/set-envrionment
+        uses: ./.github/actions/get-envrionment
 
       # - name: Install Forge CLI
       #   run: npm install -g @forge/cli
+
+      - name: check consolidation 2
+        run: echo "The value of OUTPUT is $OUTPUT" 
+        env:
+           OUTPUT: ${{needs.job1.outputs.output}}
       
       - name: check consolidation 1
         run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL" 
