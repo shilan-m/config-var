@@ -35,8 +35,8 @@ jobs:
         with:
           node-version: 16
 
-      - name: Set deployment environment
-        uses: ./.github/actions/get-envrionment
+      # - name: Set deployment environment
+      #   uses: ./.github/actions/get-envrionment
 
       # - name: Install Forge CLI
       #   run: npm install -g @forge/cli
@@ -44,9 +44,9 @@ jobs:
       - name: check consolidation 2
         run: echo "The value of OUTPUT is $OUTPUT" 
         env:
-           OUTPUT: ${{needs.job1.outputs.output}}
+           OUTPUT: ${{needs.get-env.outputs.output}}
       
       - name: check consolidation 1
         run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL" 
-        env:
-          FORGE_EMAIL: ${{ vars.FORGE_EMAIL }}
+        # env:
+        #   FORGE_EMAIL: ${{ vars.FORGE_EMAIL }}

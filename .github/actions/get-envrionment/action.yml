@@ -1,0 +1,17 @@
+name: Get Deployment Environment
+author: ServiceRocket-Garden
+description: Get corresponding deployment environment base on branch name
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get staging env
+      if: endsWith(github.ref, '/develop')
+      run: |
+        echo "ENVIRONMENT=staging" >> $GITHUB_ENV
+      shell: bash
+    - name: Get production env
+      if: endsWith(github.ref, '/master')
+      run: |
+        echo "ENVIRONMENT=production" >> $GITHUB_ENV
+      shell: bash
