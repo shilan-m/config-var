@@ -38,7 +38,7 @@ jobs:
       - name: check consolidation 2
         run: echo "The value of OUTPUT is $OUTPUT" 
         env:
-           OUTPUT: ${{needs.get-env.outputs.output}}
-      
+          OUTPUT: ${{needs.get-env.outputs.output}}
+          
       - name: check consolidation 1
         run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL" 
