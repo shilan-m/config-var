@@ -39,6 +39,26 @@ jobs:
         run: echo "The value of OUTPUT is $OUTPUT" 
         env:
           OUTPUT: ${{needs.get-env.outputs.output}}
-          
+
       - name: check consolidation 1
         run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL" 
+
+  job1:
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
+    steps:
+      - id: step1
+        run: echo "test=hello" >> "$GITHUB_OUTPUT"
+      - id: step2
+        run: echo "test=world" >> "$GITHUB_OUTPUT"
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - env:
+          OUTPUT1: ${{needs.job1.outputs.output1}}
+          OUTPUT2: ${{needs.job1.outputs.output2}}
+        run: echo "$OUTPUT1 $OUTPUT2"
