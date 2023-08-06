@@ -1,7 +1,7 @@
 name: Deployment
 on:
   push:
-    branches: ['improve-cd-pipelines','main']
+    branches: ['develop','main']
 
 concurrency: cd-${{ github.ref }}
 
@@ -15,7 +15,7 @@ jobs:
         if: endsWith(github.ref, '/develop')
         run: echo "data=staging" >> "$GITHUB_OUTPUT"
       - id: step2
-        if: endsWith(github.ref, '/master')
+        if: endsWith(github.ref, '/main')
         run: echo "data=production" >> "$GITHUB_OUTPUT"
       - id: concat
         run: echo "data=${{ steps.step1.outputs.data }}${{ steps.step2.outputs.data }}" >> "$GITHUB_OUTPUT"
