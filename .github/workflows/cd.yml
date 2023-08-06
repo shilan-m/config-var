@@ -9,7 +9,7 @@ jobs:
   get-env:
     runs-on: ubuntu-latest
     outputs:
-      output: ${{ steps.step1.concat.data }}
+      output: ${{ steps.concat.data }}
     steps:
       - id: step1
         if: endsWith(github.ref, '/develop')
