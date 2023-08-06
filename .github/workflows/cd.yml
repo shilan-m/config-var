@@ -9,7 +9,7 @@ jobs:
   get-env:
     runs-on: ubuntu-latest
     outputs:
-      output: ${{ steps.concat.data }}
+      output: ${{ steps.concat.outputs.data }}
     steps:
       - id: step1
         if: endsWith(github.ref, '/develop')
@@ -35,12 +35,6 @@ jobs:
         with:
           node-version: 16
 
-      # - name: Set deployment environment
-      #   uses: ./.github/actions/get-envrionment
-
-      # - name: Install Forge CLI
-      #   run: npm install -g @forge/cli
-
       - name: check consolidation 2
         run: echo "The value of OUTPUT is $OUTPUT" 
         env:
@@ -48,5 +42,3 @@ jobs:
       
       - name: check consolidation 1
         run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL" 
-        # env:
-        #   FORGE_EMAIL: ${{ vars.FORGE_EMAIL }}
