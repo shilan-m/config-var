@@ -1,9 +1,10 @@
 name: Deployment
+run-name: Deploy to ${{ github.ref_name }} - ${{github.event.head_commit.message}}
 on:
   push:
     branches: ['develop','main']
 
-concurrency: cd-${{ github.ref }}
+concurrency: cd-${{ github.ref_name }}
 
 jobs:
   get-env:
@@ -12,10 +13,10 @@ jobs:
       output: ${{ steps.concat.outputs.data }}
     steps:
       - id: step1
-        if: endsWith(github.ref, '/develop')
+        if: ${{github.ref_name == 'develop'}}
         run: echo "data=staging" >> "$GITHUB_OUTPUT"
       - id: step2
-        if: endsWith(github.ref, '/main')
+        if: ${{github.ref_name == 'main'}}
         run: echo "data=production" >> "$GITHUB_OUTPUT"
       - id: concat
         run: echo "data=${{ steps.step1.outputs.data }}${{ steps.step2.outputs.data }}" >> "$GITHUB_OUTPUT"
@@ -43,3 +44,6 @@ jobs:
 
       - name: check consolidation 1
         run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL" 
+
+      - name: print name
+        run: echo "The value of run name is ${{github.ref_name}} ${{github.event.head_commit.message}} " 
