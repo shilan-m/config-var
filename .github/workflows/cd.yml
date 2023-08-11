@@ -1,5 +1,5 @@
 name: Deployment
-run-name: Deploy on ${{ github.ref_name }} - ${{github.event.head_commit.message}}
+run-name: Deploy on ${{ github.ref_name }} - ${{github.event.head_commit}}
 on:
   push:
     branches: ['develop','main']
