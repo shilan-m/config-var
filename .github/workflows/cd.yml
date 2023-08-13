@@ -2,7 +2,7 @@ name: Deployment
 run-name: Deploy on ${{ github.ref_name }} - ${{github.event.head_commit.message}}
 on:
   push:
-    branches: ['develop','main']
+    branches: ['develop', 'main']
 
 concurrency: cd-${{ github.ref_name }}
 
@@ -38,12 +38,12 @@ jobs:
           node-version: 16
 
       - name: check consolidation 2
-        run: echo "The value of OUTPUT is $OUTPUT" 
+        run: echo "The value of OUTPUT is $OUTPUT"
         env:
           OUTPUT: ${{needs.get-env.outputs.output}}
 
       - name: check consolidation 1
-        run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL" 
+        run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL"
 
       - name: print name
-        run: echo "The value of run name is ${{github.ref_name}} ${{github.event.head_commit.message}} " 
+        run: echo "The value of run name is ${{github.ref_name}} ${{github.event.head_commit.message}} "
