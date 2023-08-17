@@ -1,5 +1,5 @@
 name: Deployment
-run-name: Deploy[${{ github.ref_name }}]-${{github.event.head_commit.message}}
+run-name: Deploy[${{ github.ref_name }}] - $(git rev-parse --short HEAD)
 on:
   push:
     branches: ['develop', 'main']
@@ -47,3 +47,6 @@ jobs:
 
       - name: print name
         run: echo "The value of run name is ${{github.ref_name}} ${{github.event.head_commit.id}} "
+
+      - name: print git hash
+        run: echo "The value of git hash $(git rev-parse --short HEAD) "
