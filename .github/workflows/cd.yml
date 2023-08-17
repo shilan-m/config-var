@@ -3,6 +3,7 @@ run-name: Deploy[${{ github.ref_name }}] - $(git rev-parse --short HEAD)
 on:
   push:
     branches: ['develop', 'main']
+  workflow_dispatch:
 
 concurrency: cd-${{ github.ref_name }}
 
