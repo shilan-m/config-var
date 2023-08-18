@@ -11,7 +11,7 @@ jobs:
       - name: do the validation
         run: echo "validating !!"
       - name: send chat message
-        run: ${{github.event.pull_request.draft}}
+        run: echo "daft ? ${{github.event.pull_request.draft == false}}"
   send-workplace-chat-message:
     needs: validation
     if: ${{github.event.pull_request.draft == false}}
