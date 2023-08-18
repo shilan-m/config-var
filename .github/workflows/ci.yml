@@ -1,0 +1,22 @@
+name: Pull Request Review
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches: ['main']
+jobs:
+  validation:
+    name: Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: do the validation
+        run: echo "validating !!"
+      - name: send chat message
+        run: ${{github.event.pull_request.draft}}
+  send-workplace-chat-message:
+    needs: validation
+    if: ${{github.event.pull_request.draft == false}}
+    name: Workplace chat message
+    runs-on: ubuntu-latest
+    steps:
+      - name: send chat message
+        run: echo "sending !!"
