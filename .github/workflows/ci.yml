@@ -2,7 +2,7 @@ name: Pull Request Review
 on:
   pull_request:
     types: [opened, reopened, ready_for_review]
-    branches: ['main']
+    branches: ['develop']
 jobs:
   validation:
     name: Validation
