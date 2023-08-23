@@ -32,6 +32,10 @@ jobs:
   retrieve:
     name: Retrieve Forge App Logs
     runs-on: ubuntu-latest
+    env:
+      FORGE_EMAIL: ${{ vars.FORGE_EMAIL }}
+      FORGE_API_TOKEN: ${{ secrets.FORGE_API_TOKEN }}
+
     steps:
       - name: Print job's parameter values
         run: echo "${{ toJSON(env) }}"
@@ -43,4 +47,7 @@ jobs:
       # Retrieve Forge logs
       - name: Retrieve logs2
         run:  echo " ${{ env.verbose}} Expression result ${{ env.verbose == 'true' && ' --verbose' || '' }}"
+
+      - name: check consolidation 1
+        run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL"
 
