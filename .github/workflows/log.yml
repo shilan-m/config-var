@@ -8,25 +8,20 @@ on:
         type: environment
       since:
         description: view logs since the specified time
-        required: false
         default: 30d
       grouped:
         description: group logs by invocation ID
-        required: false
         type: boolean
         default: true
       verbose:
         description: enable verbose mode
-        required: false
         type: boolean
         default: true
       limit:
         description: number of invocations to return
-        required: false
         default: '1000'
       invocation:
         description: view logs for a given invocation ID
-        required: false
       
 jobs:
   retrieve:
