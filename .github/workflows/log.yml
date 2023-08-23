@@ -39,9 +39,9 @@ jobs:
 
       # Retrieve Forge logs
       - name: Retrieve logs
-        run:  echo "Expression result ${{ env.grouped && ' --grouped' || '' }}"
+        run:  echo "Expression result ${{ env.grouped == true && ' --grouped' || '' }}"
         
       # Retrieve Forge logs
       - name: Retrieve logs2
-        run:  echo "Expression result ${{ env.verbose && ' --verbose' || '' }}"
+        run:  echo "Expression result ${{ env.verbose == true && ' --verbose' || '' }}"
 
