@@ -47,3 +47,13 @@ jobs:
       - name: check consolidation 1
         run: echo "The value of FORGE_EMAIL is $FORGE_EMAIL"
 
+       # Retrieve Forge logs
+      - name: Retrieve logs2
+        run: | 
+          echo " forge logs -e ${{ vars.STAGE_NAME }} \
+          --since ${{ github.event.inputs.since && github.event.inputs.since || '30d' }} \
+          --limit ${{ github.event.inputs.limit && github.event.inputs.limit || '1000' }} \
+          ${{ github.event.inputs.invocation && format(' --invocation {0}', github.event.inputs.invocation) || '' }} \
+          ${{ github.event.inputs.grouped == 'true' && ' --grouped' || '' }} \
+          ${{ github.event.inputs.verbose == 'true' && ' --verbose' || '' }} "
+
