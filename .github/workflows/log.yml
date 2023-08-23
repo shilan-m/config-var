@@ -4,21 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        type: choice
-        description: Forge App environment
         required: true
-        options:
-          - staging
-          - production
+        type: environment
       since:
-        description: view logs since the specified time. valid formats:YYYY-MM-DD, ISO 8061 timestamp or a relative time (e.g 5m, 10h, 2d)
+        description: view logs since the specified time
         required: false
         default: 30d
-      limit:
-        description: number of invocations to return
-        required: false
-        type: number
-        default: 1000
       grouped:
         description: group logs by invocation ID
         required: false
@@ -29,6 +20,10 @@ on:
         required: false
         type: boolean
         default: true
+      limit:
+        description: number of invocations to return
+        required: false
+        default: '1000'
       invocation:
         description: view logs for a given invocation ID
         required: false
