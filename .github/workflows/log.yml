@@ -1,0 +1,47 @@
+name: Retrieve Forge logs
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+    inputs:
+      since:
+        required: false
+        default: 30d
+      limit:
+        required: false
+        type: number
+        default: 1000
+      grouped:
+        required: false
+        type: boolean
+        default: true
+      verbose:
+        required: false
+        type: boolean
+        default: true
+      invocation:
+        required: false
+
+env:
+  # since: 30d
+  limit: 50
+  verbose: false
+  grouped: true
+      
+jobs:
+  retrieve:
+    name: Retrieve Forge App Logs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print job's parameter values
+        run: echo "${{ toJSON(env) }}"
+
+      # Retrieve Forge logs
+      - name: Retrieve logs
+        run:  echo "Expression result ${{ env.grouped && ' --grouped' || '' }}"
+        
+      # Retrieve Forge logs
+      - name: Retrieve logs2
+        run:  echo "Expression result ${{ env.verbose && ' --verbose' || '' }}"
+
